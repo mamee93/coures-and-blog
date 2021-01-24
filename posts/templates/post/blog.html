@@ -1,0 +1,106 @@
+{% extends "base.html" %} {% block content %}
+
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+            <ol>
+                <li><a href="index.html">Home</a></li>
+                <li>Blog</li>
+            </ol>
+            <h2>Blog</h2>
+
+        </div>
+    </section>
+    <!-- End Breadcrumbs -->
+
+    <!-- ======= Blog Section ======= -->
+    <section id="blog" class="blog">
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-8 entries">
+
+                    <div class="row">
+                        {% for post in object_list %}
+                        <div class="col-md-6 d-flex align-items-stretch">
+                            <article class="entry">
+
+                                <div class="entry-img">
+                                    <img src="{{post.image.url}}" alt="" class="img-fluid">
+                                </div>
+
+                                <h2 class="entry-title">
+                                    <a href="{{post.get_absolute_url}}">{{post.title}}</a>
+                                </h2>
+
+                                <div class="entry-meta">
+                                    <ul>
+                                        <li class="d-flex align-items-center"><i class="icofont-user"></i> <a href="blog-single.html">{{post.author.username}}</a></li>
+                                        <li class="d-flex align-items-center"><i class="icofont-wall-clock"></i> <a href="blog-single.html"><time datetime="2020-01-01">{{post.timestamp|timesince}}</time></a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="entry-content">
+                                    <p>
+                                        {{post.overview}}
+                                    </p>
+                                    <div class="read-more">
+                                        <a href="blog-single.html">Read More</a>
+                                    </div>
+                                </div>
+
+                            </article>
+                            <!-- End blog entry -->
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                    {% if is_paginated %}
+                    <div class="blog-pagination">
+
+                        <ul class="justify-content-center">
+
+                            {% if page_obj.has_previous %}
+                            <li class="">
+                                <a href="?page={{page_obj.previous_page_number}}">
+                                <i class="icofont-rounded-left"></i></a>
+                            </li>
+
+                            {% endif %} 
+                            {% for i in paginator.page_range %}
+                             {% if page_obj.number == i %}
+                            <li class="active"><a href="?page={{ i }}">{{i}}</a></li>
+                            {% endif %} {% endfor %} {% if page_obj.has_next %}
+                            <li><a href="?page={{page_obj.next_page_number}}"><i class="icofont-rounded-right"></i></a></li>
+                            {% else %}
+                            <li class=" disabled"> <span>&raquo;</span></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                </div>
+                <!-- End blog entries list -->
+
+                <div class="col-lg-4">
+
+
+                    {% include "sidebar.html" %}
+                    <!-- End sidebar -->
+
+                </div>
+                <!-- End blog sidebar -->
+
+            </div>
+
+        </div>
+    </section>
+    <!-- End Blog Section -->
+
+</main>
+<!-- End #main -->
+{% endblock content %}
