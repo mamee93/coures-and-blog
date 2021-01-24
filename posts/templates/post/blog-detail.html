@@ -78,15 +78,18 @@
                     <!-- End blog entry -->
 
                     <div class="blog-author clearfix">
-                        <img src="{{object.author.Profile_img.url}}" class="rounded-circle float-left" alt="">
+                    {% for Author in Author %}
+                        <img src="{{Author.Profile_img.url}}" class="rounded-circle float-left" alt="">
                         <h4>{{object.author.username}}</h4>
+                        
                         <div class="social-links">
                             <a href="https://twitters.com/#"><i class="icofont-twitter"></i></a>
                             <a href="https://facebook.com/#"><i class="icofont-facebook"></i></a>
                             <a href="https://instagram.com/#"><i class="icofont-instagram"></i></a>
                         </div>
-                        <p>{{object.author.bio}}</p>
-                             
+                        
+                        <p>{{Author.bio}}</p>
+                         {% endfor %}    
                     </div>
                     <!-- End blog author bio -->
 

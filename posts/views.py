@@ -9,10 +9,12 @@ from taggit.models import Tag
  
 
 def index(request):
+    
     return render(request, 'index.html', {})
 
 class BlogListView(ListView):
     model = Post
+ 
     paginate_by = 10
     def get_queryset(self):
         name = self.request.GET.get('q','')
@@ -32,11 +34,13 @@ class BlogListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+    
     template_name = 'post/blog-detail.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Gategory.objects.all()
         context['tags'] =  Tag.objects.all()
+        context['Author'] =  Author.objects.all()
         return context
     
     
